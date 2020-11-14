@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {decrementCount} from './actions/decrementCount';
 import {incrementCount}from './actions/incrementCount';
@@ -19,19 +19,46 @@ export default function Cart(props){
 
   function handleDelete(fruitName){
     dispatch(deleteItem(fruitName));
+    removeFromLocalStorage(fruitName);
   }
 
   function handleDecrement(fruitName, count) {
     if(count === 1){
       dispatch(deleteItem(fruitName));
+      removeFromLocalStorage(fruitName);
     } else{
       dispatch(decrementCount(fruitName));
+      editCountLocalStorage("decrement", fruitName);
     }
   }
 
   function handleIncrement(fruitName) {
     dispatch(incrementCount(fruitName));
+    editCountLocalStorage("increment", fruitName);
   }
+
+  function removeFromLocalStorage(fruitName){
+    let localCart = JSON.parse(localStorage.getItem("cart"));
+    let exists = localCart.find(cartItem => cartItem.fruitName === fruitName);
+    let index = localCart.indexOf(exists);
+    localCart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(localCart));
+  }
+
+  function editCountLocalStorage(type, fruitName){
+    let localCart = JSON.parse(localStorage.getItem("cart"));
+    let exists = localCart.find(cartItem => cartItem.fruitName === fruitName);
+    let index = localCart.indexOf(exists);
+
+    if(type === "increment"){
+      localCart[index].count++;
+    } else if(type ==="decrement"){
+      localCart[index].count--;
+    }
+
+    localStorage.setItem("cart", JSON.stringify(localCart));
+  }
+
 
   return(
     <div className="cart-container">
@@ -43,9 +70,9 @@ export default function Cart(props){
             <button className="cart-delete-btn" onClick={() => {handleDelete(cartItem.fruitName)}}>Remove from cart</button>
             <p className="cart-price">${(cartItem.price.slice(1) * cartItem.count).toFixed(2)}</p>
             <div className="cart-count-btns">
-              <button onClick={() => {handleDecrement(cartItem.fruitName, cartItem.count)}}>-</button>
+              <button className="cart-count-btn" onClick={() => {handleDecrement(cartItem.fruitName, cartItem.count)}}>-</button>
               <p>{cartItem.count}</p>
-              <button onClick={() => {handleIncrement(cartItem.fruitName)}}>+</button>
+              <button className="cart-count-btn" onClick={() => {handleIncrement(cartItem.fruitName)}}>+</button>
             </div>
           </div>
       )) : <p className="cart-empty">The cart is empty.</p>}

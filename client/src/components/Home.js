@@ -1,23 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
 import Product from './Product';
 
 export default function Home(){
 
-  let productList;
-  const dispatch = useDispatch();
-
   const [data, setData] = useState([]);
-  //const localCart = JSON.parse(localStorage.getItem("cart"));
-
-  //const [productList, setProductList] = useState([]);
-  // useEffect(() => {
-  //   if(localCart){
-  //     localCart.forEach(fruit => {
-  //       dispatch({type: 'ADD_TO_CART', fruitName: fruit});
-  //     })
-  //   }
-  // }, [])
 
   useEffect(() => {
     callBackend()
@@ -35,7 +21,6 @@ export default function Home(){
       return body;
     }
   }
-
 
   return (
     <React.Fragment>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToCart} from './actions/addToCart';
@@ -7,21 +7,23 @@ export default function Product(props){
 
   const dispatch = useDispatch();
   const selectedData = useSelector(state => state);
-  const localCart = JSON.parse(localStorage.getItem("cart"));
+  const fruitItem = {
+    fruitName: props.fruitName,
+    imgLink: props.imgLink,
+    price: props.price,
+    count: 1
+  };
 
   function handleClick(event){
-    dispatch(addToCart({
-      fruitName: props.fruitName,
-      imgLink: props.imgLink,
-      price: props.price,
-      count: 1
-    }));
-    // if(localCart){
-    //   localCart.push(props.fruitName);
-    //   localStorage.setItem("cart", JSON.stringify(localCart));
-    // } else{
-    //   localStorage.setItem("cart", JSON.stringify([props.fruitName]));
-    // }
+    dispatch(addToCart(fruitItem));
+
+    let localCart = JSON.parse(localStorage.getItem("cart"));
+    if(localCart){
+      localCart.push(fruitItem);
+      localStorage.setItem("cart", JSON.stringify(localCart));
+    } else{
+      localStorage.setItem("cart", JSON.stringify([fruitItem]));
+    }
   }
 
   function checkInCart(){
@@ -48,7 +50,7 @@ export default function Product(props){
         <img alt="fruit" src={props.imgLink} />
       </Link>
       <p>{props.price}</p>
-      <button className="cart-btn" onClick={handleClick} disabled={checkInCart()}>{checkInCart()?"Added to Cart":"Add to Cart"}</button>
+      <button className="card-cart-btn" onClick={handleClick} disabled={checkInCart()}>{checkInCart()?"Added to Cart":"Add to Cart"}</button>
     </div>
   )
 }

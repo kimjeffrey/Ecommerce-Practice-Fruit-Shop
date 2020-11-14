@@ -8,20 +8,23 @@ export default function Details(props){
   const dispatch = useDispatch();
   const selectedData = useSelector(state => state);
   const {fruitName, imgLink, price, description} = props.location.state;
+  const fruitItem = {
+    fruitName: fruitName,
+    imgLink: imgLink,
+    price: price,
+    count: 1
+  };
+  const localCart = JSON.parse(localStorage.getItem("cart"));
 
   function handleClick(event){
-    dispatch(addToCart({
-      fruitName: fruitName,
-      imgLink: imgLink,
-      price: price,
-      count: 1
-    }));
-    // if(localCart){
-    //   localCart.push(props.fruitName);
-    //   localStorage.setItem("cart", JSON.stringify(localCart));
-    // } else{
-    //   localStorage.setItem("cart", JSON.stringify([props.fruitName]));
-    // }
+    dispatch(addToCart(fruitItem));
+
+    if(localCart){
+      localCart.push(fruitItem);
+      localStorage.setItem("cart", JSON.stringify(localCart));
+    } else{
+      localStorage.setItem("cart", JSON.stringify([fruitItem]));
+    }
   }
 
   function checkInCart(){
@@ -40,9 +43,9 @@ export default function Details(props){
       <h2 id="details-price">{price}</h2>
       <p id="details-description">{description}</p>
       <div id="details-buttons">
-        <button onClick={handleClick} disabled={checkInCart()}>{checkInCart()?"Added to Cart":"Add to Cart"}</button>
+        <button className="details-button" onClick={handleClick} disabled={checkInCart()}>{checkInCart()?"Added to Cart":"Add to Cart"}</button>
         <Link to="/">
-          <button>Back to Products</button>
+          <button className="details-button">Back to Products</button>
         </Link>
       </div>
     </div>
