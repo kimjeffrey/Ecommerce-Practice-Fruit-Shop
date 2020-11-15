@@ -114,14 +114,9 @@ code {
 }
 
 .cart-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.cart-heading {
-  align-self: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
 }
 
 .cart-item {
@@ -130,6 +125,7 @@ code {
   width: 100%;
   display: grid;
   grid-gap: 5px 20px;
+  grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
     "cart-image fruit-name cart-price"
     "cart-image delete-btn count-btns";
@@ -175,15 +171,36 @@ code {
   font-size: 1.5rem;
 }
 
+.cart-summary {
+  width: 300px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 10px 20px;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.cart-summary-item {
+  display: flex;
+  justify-content: space-between;
+}
+
 .cart-total-price {
   align-self: center;
+}
+
+.checkout-btn {
+  padding: 10px;
+  background-color: green;
+  color: white;
+  border-radius: 10%;
 }
 
 .cart-empty {
   align-self: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   #details-container {
     grid-template-areas:
       "title title"
@@ -200,7 +217,9 @@ code {
     margin: 0 5%;
   }
 
+
   .cart-item {
+    grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
       "cart-image fruit-name count-btns cart-price"
       "cart-image delete-btn count-btns cart-price";
@@ -212,8 +231,25 @@ code {
     margin: 0 100px;
   }
 
+  .cart-container {
+    grid-template-columns: 1fr 1fr 300px;
+    grid-column-gap: 40px;
+  }
+
+  .cart-heading {
+    grid-column: 1 / span 3;
+  }
+
   .cart-item {
+    grid-column: 1 / 3;
+    grid-template-columns: repeat(5, 1fr);
     grid-template-areas:
       "cart-image fruit-name count-btns cart-price  delete-btn";
+  }
+
+  .cart-summary {
+    grid-column-start: 3;
+    grid-row: 2 / 20;
+    align-self: start;
   }
 }

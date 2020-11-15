@@ -76,7 +76,17 @@ export default function Cart(props){
             </div>
           </div>
       )) : <p className="cart-empty">The cart is empty.</p>}
-      {items.length !== 0 && <p className="cart-total-price">Total Price: ${calculateTotal().toFixed(2)}</p>}
+      <div className="cart-summary">
+        <h2>Summary</h2>
+        {items.map(cartItem => (
+          <div className="cart-summary-item">
+            <p>{cartItem.fruitName} (x{cartItem.count})</p>
+            <p>${(cartItem.price.slice(1) * cartItem.count).toFixed(2)}</p>
+          </div>
+        ))}
+        <p className="cart-total-price">Subtotal: ${calculateTotal().toFixed(2)}</p>
+        <button className="checkout-btn">Checkout</button>
+      </div>
     </div>
   )
 }
