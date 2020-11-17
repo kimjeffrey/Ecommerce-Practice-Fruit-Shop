@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {decrementCount} from './actions/decrementCount';
 import {incrementCount}from './actions/incrementCount';
@@ -59,7 +60,6 @@ export default function Cart(props){
     localStorage.setItem("cart", JSON.stringify(localCart));
   }
 
-
   return(
     <div className="cart-container">
       <h1 className="cart-heading">Your Cart</h1>
@@ -85,7 +85,9 @@ export default function Cart(props){
           </div>
         ))}
         <p className="cart-total-price">Subtotal: ${calculateTotal().toFixed(2)}</p>
-        <button className="checkout-btn">Checkout</button>
+        <button className="green-btn">
+          <Link className="checkout-btn" to="/checkout">Checkout</Link>
+        </button>
       </div>
     </div>
   )

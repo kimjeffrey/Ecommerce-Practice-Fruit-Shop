@@ -5,7 +5,8 @@ import Navbar from './Navbar';
 import Home from './Home';
 import Details from './Details';
 import Cart from './Cart';
-import Error from './Error'
+import Checkout from './Checkout';
+import Error from './Error';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/" component={Home}></Route>
         <Route path="/details" component={Details}></Route>
         <Route path="/cart" component={Cart}></Route>
+        <Route path="/checkout" component={Checkout}></Route>
         <Route component={Error}></Route>
       </Switch>
 

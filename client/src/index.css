@@ -65,7 +65,7 @@ code {
   opacity: .8;
 }
 
-.card-cart-btn {
+.green-btn {
   padding: 10px;
   background-color: green;
   color: white;
@@ -190,14 +190,28 @@ code {
 }
 
 .checkout-btn {
-  padding: 10px;
-  background-color: green;
+  text-decoration: none;
   color: white;
-  border-radius: 10%;
 }
 
 .cart-empty {
   align-self: center;
+}
+
+.checkout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-container > * {
+  margin-bottom: 20px;
+}
+
+label {
+  display: flex;
+  width: 300px;
+  justify-content: space-around;
 }
 
 @media (min-width: 769px) {

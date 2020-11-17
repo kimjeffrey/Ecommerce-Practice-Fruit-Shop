@@ -50,7 +50,7 @@ export default function Product(props){
         <img alt="fruit" src={props.imgLink} />
       </Link>
       <p>{props.price}</p>
-      <button className="card-cart-btn" onClick={handleClick} disabled={checkInCart()}>{checkInCart()?"Added to Cart":"Add to Cart"}</button>
+      <button className="green-btn" onClick={handleClick} disabled={checkInCart()}>{checkInCart()?"Added to Cart":"Add to Cart"}</button>
     </div>
   )
 }
