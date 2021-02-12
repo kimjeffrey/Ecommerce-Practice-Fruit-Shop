@@ -5,8 +5,13 @@ export default function Navbar(){
 
   return(
     <nav className="navbar">
-      <Link className="navbar-link" to="/">Awesome Fruits</Link>
-      <Link className="navbar-link" to="/Cart">Cart</Link>
+      <div className="logo">
+        <Link className="navbar-link" to="/">Awesome Fruits</Link>
+      </div>
+      <div className="nav-links">
+        <Link className="navbar-link" to="/Products">Shop</Link>
+        <Link className="navbar-link" to="/Cart">Cart</Link>
+      </div>
     </nav>
   )
 }

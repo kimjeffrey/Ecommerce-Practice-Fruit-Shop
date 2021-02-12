@@ -19,6 +19,48 @@ code {
     monospace;
 }
 
+.home-page {
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.3)
+  ), url("assets/images/landing.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  height: calc(100vh - 97px);
+  position: relative;
+}
+
+.home-content {
+  display: inline-block;
+  color: white;
+  padding: 20px 20px 40px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home-content h1 {
+  font-size: 60px;
+}
+
+.home-content p {
+  font-size: 30px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.home-button {
+  border: 2px solid white;
+  border-radius: 30px;
+  padding: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -27,6 +69,11 @@ code {
   background-color: #1f6f8b;
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
 }
 
 .navbar-link {
@@ -45,10 +92,10 @@ code {
   grid-gap: 20px 15px;
 }
 
-.card {
+.product-card {
   justify-self: center;
   width: 300px;
-  height: 450px;
+  height: auto;
   border: 1px none;
   border-radius: 5%;
   padding: 25px 50px;
@@ -56,12 +103,16 @@ code {
   box-shadow: 5px 5px 5px grey;
 }
 
-.card img {
+.product-card:hover + .product-card-hover-content {
+  display: block;
+}
+
+.product-card img {
   width: 100%;
   height: 200px;
 }
 
-.card img:hover {
+.product-card img:hover {
   opacity: .8;
 }
 
@@ -70,38 +121,60 @@ code {
   background-color: green;
   color: white;
   border-radius: 10%;
+  cursor: pointer;
 }
 
-#details-container {
+.details-container {
   display: grid;
   justify-content: center;
   grid-template-areas:
-    "title"
     "details-image"
+    "title"
     "details"
     "price"
+    "count-btns"
+    "total-price"
+    "cart-count"
     "buttons"
 }
 
-#details-heading {
+.details-heading {
   grid-area: title;
 }
 
-#details-img {
+.details-img {
   grid-area: details-image;
   width: 100%;
   height: auto;
 }
 
-#details-description {
+.details-description {
   grid-area: details;
+  padding: 10px;
 }
 
-#details-price {
+.details-price {
   grid-area: price;
 }
 
-#details-buttons {
+.details-count-btns {
+  grid-area: count-btns;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.details-total-price {
+  grid-area: total-price;
+}
+
+.details-cart-count {
+  grid-area: cart-count;
+}
+
+.details-buttons {
+  grid-area: buttons;
   margin-bottom: 50px;
 }
 
@@ -111,6 +184,7 @@ code {
   color: white;
   border-radius: 10%;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .cart-container {
@@ -143,17 +217,34 @@ code {
   grid-area: fruit-name;
 }
 
-.cart-delete-btn {
+.cart-delete-btn-holder {
   grid-area: delete-btn;
+}
+
+.cart-delete-btn-holder button {
   padding: 10px;
   background-color: #af2d2d;
   color: white;
   border-radius: 10%;
   margin-right: 10px;
+  display: inline-block;
 }
 
 .cart-price {
   grid-area: cart-price;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.cart-price p {
+  margin: 0;
+}
+
+.cart-price .cart-single-price {
+  font-size: .7em;
 }
 
 .cart-count-btns {
@@ -163,7 +254,7 @@ code {
   align-items: center;
 }
 
-.cart-count-btn {
+.cart-count-btn, .details-count-btn {
   border: .5px solid black;
   background-color: transparent;
   cursor: pointer;
@@ -174,7 +265,6 @@ code {
 .cart-summary {
   width: 300px;
   background-color: white;
-  border: 1px solid black;
   padding: 10px 20px;
   justify-content: space-between;
   align-self: center;
@@ -215,16 +305,20 @@ label {
 }
 
 @media (min-width: 769px) {
-  #details-container {
+  .details-container {
     grid-template-areas:
-      "title title"
+      "details-image title"
       "details-image details"
       "details-image price"
+      "details-image count-btns"
+      "details-image total-price"
+      "details-image cart-count"
       "details-image buttons"
   }
 
-  #details-img {
+  .details-img {
     padding-right: 50px;
+    margin-top: 50px;
   }
 
   .cart-container {
@@ -241,7 +335,7 @@ label {
 }
 
 @media (min-width: 1024px) {
-  #details-container {
+  .details-container {
     margin: 0 100px;
   }
 

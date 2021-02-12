@@ -3,6 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import Navbar from './Navbar';
 import Home from './Home';
+import Products from './Products';
 import Details from './Details';
 import Cart from './Cart';
 import Checkout from './Checkout';
@@ -27,6 +28,7 @@ function App() {
 
       <Switch>
         <Route exact path="/" component={Home}></Route>
+        <Route path="/products" component={Products}></Route>
         <Route path="/details" component={Details}></Route>
         <Route path="/cart" component={Cart}></Route>
         <Route path="/checkout" component={Checkout}></Route>

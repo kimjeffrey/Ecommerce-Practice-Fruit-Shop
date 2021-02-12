@@ -25,8 +25,7 @@ export default function Cart(props){
 
   function handleDecrement(fruitName, count) {
     if(count === 1){
-      dispatch(deleteItem(fruitName));
-      removeFromLocalStorage(fruitName);
+      return;
     } else{
       dispatch(decrementCount(fruitName));
       editCountLocalStorage("decrement", fruitName);
@@ -65,10 +64,16 @@ export default function Cart(props){
       <h1 className="cart-heading">Your Cart</h1>
       {items.length !== 0 ? items.map(cartItem => (
           <div className="cart-item">
-            <img className="cart-image" alt="fruit" src={cartItem.imgLink} />
+            <img className="cart-image" alt={cartItem.fruitName} src={"/images/" + cartItem.imgLink} />
             <h1 className="cart-fruit-name">{cartItem.fruitName}</h1>
-            <button className="cart-delete-btn" onClick={() => {handleDelete(cartItem.fruitName)}}>Remove from cart</button>
-            <p className="cart-price">${(cartItem.price.slice(1) * cartItem.count).toFixed(2)}</p>
+            <div className="cart-delete-btn-holder">
+              <button onClick={() => {handleDelete(cartItem.fruitName)}}>Delete</button>
+            </div>
+            <div className="cart-price">
+              <p className="cart-multiple-price">${(cartItem.price.slice(1) * cartItem.count).toFixed(2)}</p>
+              <p className="cart-single-price">{cartItem.price.slice(1)}/ea</p>
+            </div>
+            
             <div className="cart-count-btns">
               <button className="cart-count-btn" onClick={() => {handleDecrement(cartItem.fruitName, cartItem.count)}}>-</button>
               <p>{cartItem.count}</p>

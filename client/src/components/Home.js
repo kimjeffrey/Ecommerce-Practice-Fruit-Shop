@@ -1,35 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import Product from './Product';
+import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default function Home(){
-
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    callBackend()
-      .then(res => setData(res))
-      .catch(err => console.log(err))
-  }, [])
-
-  async function callBackend() {
-    const response = await fetch('/backend');
-    const body = await response.json();
-
-    if(response.status !== 200){
-      console.log('error');
-    } else{
-      return body;
-    }
-  }
-
   return (
-    <React.Fragment>
-      <h1>Our Products</h1>
-      <div className="product-grid">
-        {data.map(product => (
-          <Product fruitName={product.fruitName} imgLink={product.imgLink} price={product.price} description={product.description} />
-        ))}
+    <div className="home-page">
+      <div className="home-content">
+        <h1>Fresh and Delicious</h1>
+        <p>No more going out to get your fill of fruits. <br/>
+          All your fresh fruit needs in one place.
+        </p>
+        <Link to="/products" className="home-button">Shop Now</Link>
       </div>
-    </React.Fragment>
+    </div>
   )
 }

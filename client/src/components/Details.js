@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToCart} from './actions/addToCart';
@@ -16,35 +16,71 @@ export default function Details(props){
   };
   const localCart = JSON.parse(localStorage.getItem("cart"));
 
-  function handleClick(event){
-    dispatch(addToCart(fruitItem));
+  const [count, setCount] = useState(1);
 
+  function handleClick(event){
+    fruitItem.count = count;
+
+    dispatch(addToCart(fruitItem, count));
+
+    let localCart = JSON.parse(localStorage.getItem("cart"));
     if(localCart){
-      localCart.push(fruitItem);
+      let exists = localCart.find(cartItem => cartItem.fruitName === fruitName);
+      if(exists) {
+        let index = localCart.indexOf(exists);
+        localCart[index].count += count;
+      } else {
+        localCart.push(fruitItem);
+      }
       localStorage.setItem("cart", JSON.stringify(localCart));
     } else{
       localStorage.setItem("cart", JSON.stringify([fruitItem]));
     }
+
+    setCount(1);
   }
 
-  function checkInCart(){
+  function handleDecrement() {
+    setCount(prev => {
+      if(prev === 1){
+        return prev;
+      } else {
+        return prev - 1;
+      }
+    })
+  }
+
+  function handleIncrement() {
+    setCount(count + 1);
+  }
+
+  function checkCountInCart(){
     let exists = selectedData.find(cartItem => cartItem.fruitName === fruitName);
     if(exists){
-      return true;
+      return exists.count;
     } else {
       return false;
     }
   }
 
   return(
-    <div id="details-container">
-      <h1 id="details-heading">{fruitName}</h1>
-      <img id="details-img" src={imgLink} alt="fruit" />
-      <h2 id="details-price">{price}</h2>
-      <p id="details-description">{description}</p>
-      <div id="details-buttons">
-        <button className="details-button" onClick={handleClick} disabled={checkInCart()}>{checkInCart()?"Added to Cart":"Add to Cart"}</button>
-        <Link to="/">
+    <div className="details-container">
+      <img className="details-img" src={"/images/" + imgLink} alt={fruitName} />
+      <h1 className="details-heading">{fruitName}</h1>
+      <p className="details-description">{description}</p>
+      <h2 className="details-price">{price}</h2>
+      <div className="details-count-btns">
+        <button className="details-count-btn" onClick={handleDecrement}>-</button>
+        <p>{count}</p>
+        <button className="details-count-btn" onClick={handleIncrement}>+</button>
+      </div>
+      <p className="details-total-price">Total: ${(price.slice(1) * count).toFixed(2)}</p>
+      {checkCountInCart() &&
+        <p className="details-cart-count">{checkCountInCart()} in Cart</p>
+      }
+      <div className="details-buttons">
+        <button className="details-button" onClick={handleClick}>Add to Cart</button>
+        <Link to="/products">
           <button className="details-button">Back to Products</button>
         </Link>
       </div>
