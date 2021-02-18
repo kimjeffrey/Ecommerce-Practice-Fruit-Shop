@@ -23,13 +23,13 @@ export default function Products(){
   }
 
   return (
-    <React.Fragment>
+    <div className="container">
       <h1>Our Products</h1>
       <div className="product-grid">
         {data.map(product => (
           <Product fruitName={product.fruitName} imgLink={product.imgLink} price={product.price} description={product.description} />
         ))}
       </div>
-    </React.Fragment>
+    </div>
   )
 }

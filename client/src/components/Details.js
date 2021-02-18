@@ -64,25 +64,27 @@ export default function Details(props){
   }
 
   return(
-    <div className="details-container">
-      <img className="details-img" src={"/images/" + imgLink} alt={fruitName} />
-      <h1 className="details-heading">{fruitName}</h1>
-      <p className="details-description">{description}</p>
-      <h2 className="details-price">{price}</h2>
-      <div className="details-count-btns">
-        <button className="details-count-btn" onClick={handleDecrement}>-</button>
-        <p>{count}</p>
-        <button className="details-count-btn" onClick={handleIncrement}>+</button>
-      </div>
-      <p className="details-total-price">Total: ${(price.slice(1) * count).toFixed(2)}</p>
-      {checkCountInCart() &&
-        <p className="details-cart-count">{checkCountInCart()} in Cart</p>
-      }
-      <div className="details-buttons">
-        <button className="details-button" onClick={handleClick}>Add to Cart</button>
-        <Link to="/products">
-          <button className="details-button">Back to Products</button>
-        </Link>
+    <div className="container">
+      <div className="details-container">
+        <img className="details-img" src={"/images/" + imgLink} alt={fruitName} />
+        <h1 className="details-heading">{fruitName}</h1>
+        <p className="details-description">{description}</p>
+        <h2 className="details-price">{price}</h2>
+        <div className="details-count-btns">
+          <button className="details-count-btn" onClick={handleDecrement}>-</button>
+          <p>{count}</p>
+          <button className="details-count-btn" onClick={handleIncrement}>+</button>
+        </div>
+        <p className="details-total-price">Total: ${(price.slice(1) * count).toFixed(2)}</p>
+        {checkCountInCart() &&
+          <p className="details-cart-count">{checkCountInCart()} in Cart</p>
+        }
+        <div className="details-buttons">
+          <button className="details-button" onClick={handleClick}>Add to Cart</button>
+          <Link to="/products">
+            <button className="details-button">Back to Products</button>
+          </Link>
+        </div>
       </div>
     </div>
   )

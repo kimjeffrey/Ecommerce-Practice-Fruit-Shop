@@ -60,39 +60,41 @@ export default function Cart(props){
   }
 
   return(
-    <div className="cart-container">
-      <h1 className="cart-heading">Your Cart</h1>
-      {items.length !== 0 ? items.map(cartItem => (
-          <div className="cart-item">
-            <img className="cart-image" alt={cartItem.fruitName} src={"/images/" + cartItem.imgLink} />
-            <h1 className="cart-fruit-name">{cartItem.fruitName}</h1>
-            <div className="cart-delete-btn-holder">
-              <button onClick={() => {handleDelete(cartItem.fruitName)}}>Delete</button>
+    <div className="container">
+      <div className="cart-container">
+        <h1 className="cart-heading">Your Cart</h1>
+        {items.length !== 0 ? items.map(cartItem => (
+            <div className="cart-item">
+              <img className="cart-image" alt={cartItem.fruitName} src={"/images/" + cartItem.imgLink} />
+              <h1 className="cart-fruit-name">{cartItem.fruitName}</h1>
+              <div className="cart-delete-btn-holder">
+                <button onClick={() => {handleDelete(cartItem.fruitName)}}>Delete</button>
+              </div>
+              <div className="cart-price">
+                <p className="cart-multiple-price">${(cartItem.price.slice(1) * cartItem.count).toFixed(2)}</p>
+                <p className="cart-single-price">{cartItem.price.slice(1)}/ea</p>
+              </div>
+              
+              <div className="cart-count-btns">
+                <button className="cart-count-btn" onClick={() => {handleDecrement(cartItem.fruitName, cartItem.count)}}>-</button>
+                <p>{cartItem.count}</p>
+                <button className="cart-count-btn" onClick={() => {handleIncrement(cartItem.fruitName)}}>+</button>
+              </div>
             </div>
-            <div className="cart-price">
-              <p className="cart-multiple-price">${(cartItem.price.slice(1) * cartItem.count).toFixed(2)}</p>
-              <p className="cart-single-price">{cartItem.price.slice(1)}/ea</p>
+        )) : <p className="cart-empty">The cart is empty.</p>}
+        <div className="cart-summary">
+          <h2>Summary</h2>
+          {items.map(cartItem => (
+            <div className="cart-summary-item">
+              <p>{cartItem.fruitName} (x{cartItem.count})</p>
+              <p>${(cartItem.price.slice(1) * cartItem.count).toFixed(2)}</p>
             </div>
-            
-            <div className="cart-count-btns">
-              <button className="cart-count-btn" onClick={() => {handleDecrement(cartItem.fruitName, cartItem.count)}}>-</button>
-              <p>{cartItem.count}</p>
-              <button className="cart-count-btn" onClick={() => {handleIncrement(cartItem.fruitName)}}>+</button>
-            </div>
-          </div>
-      )) : <p className="cart-empty">The cart is empty.</p>}
-      <div className="cart-summary">
-        <h2>Summary</h2>
-        {items.map(cartItem => (
-          <div className="cart-summary-item">
-            <p>{cartItem.fruitName} (x{cartItem.count})</p>
-            <p>${(cartItem.price.slice(1) * cartItem.count).toFixed(2)}</p>
-          </div>
-        ))}
-        <p className="cart-total-price">Subtotal: ${calculateTotal().toFixed(2)}</p>
-        <button className="green-btn">
-          <Link className="checkout-btn" to="/checkout">Checkout</Link>
-        </button>
+          ))}
+          <p className="cart-total-price">Subtotal: ${calculateTotal().toFixed(2)}</p>
+          <button className="green-btn">
+            <Link className="checkout-btn" to="/checkout">Checkout</Link>
+          </button>
+        </div>
       </div>
     </div>
   )
