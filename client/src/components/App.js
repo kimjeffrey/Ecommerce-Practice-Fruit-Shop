@@ -8,6 +8,7 @@ import Details from './Details';
 import Cart from './Cart';
 import Checkout from './Checkout';
 import Error from './Error';
+import Success from './Success';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/details" component={Details}></Route>
         <Route path="/cart" component={Cart}></Route>
         <Route path="/checkout" component={Checkout}></Route>
+        <Route path="/success" component={Success}></Route>
         <Route component={Error}></Route>
       </Switch>
 
