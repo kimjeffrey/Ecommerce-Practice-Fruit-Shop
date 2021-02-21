@@ -37,6 +37,17 @@ export default function CheckoutForm() {
     event.preventDefault();
     setIsProcessing(true);
 
+    const billingDetails = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+      address: {
+        city: event.target.city.value,
+        line1: event.target.address.value,
+        state: event.target.state.value,
+        postal_code: event.target.zip.value,
+      }
+    }
+
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
       // form submission until Stripe.js has loaded.
@@ -54,6 +65,7 @@ export default function CheckoutForm() {
     const {error, paymentMethod} = await stripe.createPaymentMethod({
       type: 'card',
       card: cardElement,
+      billing_details: billingDetails,
     });
 
     if (error) {
@@ -109,19 +121,39 @@ export default function CheckoutForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="checkout-form" onSubmit={handleSubmit}>
+      <h2>Billing Address</h2>
       <label>
-        Name: 
+        Name
         <input type="text" name="name" />
       </label>
-      <label htmlFor="">
-        Email:
+      <label>
+        Email
         <input type="email" name="email" />
       </label>
-      <label htmlFor="">
-        Phone number:
+      <label>
+        Address
+        <input type="adr" name="address" />
+      </label>
+      <label>
+        City
+        <input type="text" name="city" />
+      </label>
+      <div className="state-zip">
+        <label>
+          State
+          <input type="text" name="state" />
+        </label>
+        <label>
+          Zip
+          <input type="number" name="zip" />
+        </label>
+      </div>
+      <label>
+        Phone number
         <input type="number" name="number" />
       </label>
+      <h2>Payment</h2>
       <CardElement onChange={cardChangeHandler}
         options={{
           style: {
@@ -136,10 +168,11 @@ export default function CheckoutForm() {
               color: '#9e2146',
             },
           },
+          hidePostalCode: true,
         }}
       />
       {checkoutError && <p>{checkoutError}</p>}
-      <button type="submit" disabled={!stripe || isProcessing}>{isProcessing ? "Processing..." : `Pay ${calculateTotal()}`}</button>
+      <button className="green-btn" type="submit" disabled={!stripe || isProcessing}>{isProcessing ? "Processing..." : `Pay $${calculateTotal()}`}</button>
     </form>
   )
 }

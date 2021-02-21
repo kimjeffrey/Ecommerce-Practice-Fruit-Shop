@@ -78,23 +78,17 @@ export default function Product(props){
       </Link>
       <h1 className="product-card-title">{props.fruitName}</h1>
       <p>{props.price}</p>
-      {!isHovered && checkCountInCart() &&
-        <p>{checkCountInCart()} in Cart</p>
-      }
-      {isHovered && 
-        <div className="product-card-hover-content">
-          <div className="cart-count-btns">
-            <button className="cart-count-btn" onClick={handleDecrement}>-</button>
-            <p>{count}</p>
-            <button className="cart-count-btn" onClick={handleIncrement}>+</button>
-          </div>
-          <p>Total: ${(props.price.slice(1) * count).toFixed(2)}</p>
-          <button className="green-btn" onClick={handleClick}>Add to Cart</button>
-          {checkCountInCart() &&
-            <p>{checkCountInCart()} in Cart</p>
-          }
+      <p>{checkCountInCart() ? checkCountInCart() : 0} in Cart</p>
+      <div className="product-card-hover-content">
+        <div className="cart-count-btns">
+          <button className="cart-count-btn" onClick={handleDecrement}>-</button>
+          <p>{count}</p>
+          <button className="cart-count-btn" onClick={handleIncrement}>+</button>
         </div>
-      }
+        <p>Total: ${(props.price.slice(1) * count).toFixed(2)}</p>
+        <button className="green-btn" onClick={handleClick}>Add to Cart</button>
+        <p>{checkCountInCart() ? checkCountInCart() : 0} in Cart</p>
+      </div>
     </div>
     
     </>

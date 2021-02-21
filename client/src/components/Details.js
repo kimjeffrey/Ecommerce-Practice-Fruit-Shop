@@ -80,9 +80,9 @@ export default function Details(props){
           <p className="details-cart-count">{checkCountInCart()} in Cart</p>
         }
         <div className="details-buttons">
-          <button className="details-button" onClick={handleClick}>Add to Cart</button>
+          <button className="green-btn" onClick={handleClick}>Add to Cart</button>
           <Link to="/products">
-            <button className="details-button">Back to Products</button>
+            <button className="green-btn">Back to Products</button>
           </Link>
         </div>
       </div>

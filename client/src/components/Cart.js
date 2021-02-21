@@ -92,9 +92,9 @@ export default function Cart(props){
               </div>
             ))}
             <p className="cart-total-price">Subtotal: ${calculateTotal()}</p>
-            <button className="green-btn">
-              <Link className="checkout-btn" to="/checkout">Checkout</Link>
-            </button>
+            <Link to="/checkout">
+              <button className="green-btn">Checkout</button>
+            </Link>
           </div>
         }
       </div>
