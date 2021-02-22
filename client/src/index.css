@@ -36,7 +36,12 @@ code {
 
 .home-content {
   display: inline-block;
-  color: black;
+  color: #f05454;
+  text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
   padding: 20px 20px 40px;
   position: absolute;
   top: 40%;
@@ -45,28 +50,28 @@ code {
 }
 
 .home-content h1 {
-  font-size: 60px;
+  font-size: 48px;
 }
 
 .home-content p {
-  font-size: 30px;
+  font-size: 24px;
   line-height: 1.7;
   margin-bottom: 40px;
   font-weight: 600;
 }
 
 .home-button {
-  border: 2px solid black;
+  border: 2px solid #f05454;
   border-radius: 30px;
   padding: 15px;
   font-weight: bold;
   text-decoration: none;
-  color: black;
+  color: #f05454;
 }
 
 .home-button:hover {
-  border-color: #f05454;
-  color: #f05454;
+  border-color: #a83939;
+  color: #a83939;
 }
 
 .navbar {
@@ -76,21 +81,37 @@ code {
   padding: 30px 10%;
   background-color: #f4f9f9;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .nav-links {
-  display: flex;
+  display: none;
   gap: 30px;
 }
 
 .navbar-link {
   text-decoration: none;
-  color: #222831;
+  color: #f05454;
+  
 }
 
 .navbar-link:hover {
+  color: #a83939;
+}
+
+.hamburger-menu {
+  cursor: pointer;
   color: #f05454;
+}
+
+.hamburger-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f4f9f9;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding-bottom: 15px;
 }
 
 .product-grid {
@@ -241,11 +262,11 @@ code {
   margin-bottom: 20px;
   width: 100%;
   display: grid;
-  grid-column-gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    "cart-image fruit-name cart-price"
-    "cart-image count-btns delete-btn";
+    "cart-image cart-image"
+    "fruit-name fruit-name"
+    "count-btns cart-price"
+    "delete-btn delete-btn";
   align-items: center;
 }
 
@@ -258,10 +279,14 @@ code {
 
 .cart-fruit-name {
   grid-area: fruit-name;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .cart-delete-btn-holder {
   grid-area: delete-btn;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .cart-delete-btn-holder button {
@@ -309,7 +334,7 @@ code {
 }
 
 .cart-summary {
-  width: 300px;
+  width: 100%;
   background-color: white;
   padding: 10px 20px;
   justify-content: space-between;
@@ -326,7 +351,7 @@ code {
 }
 
 .checkout-form-container {
-  width: 320px;
+  width: 100%;
   margin: auto;
   text-align: left;
 }
@@ -361,7 +386,51 @@ code {
   margin-bottom: 10px;
 }
 
+@media (min-width: 481px) {
+  .checkout-form-container {
+    width: 400px;
+  }
+
+  .cart-item {
+    grid-column-gap: 20px;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-areas:
+    "cart-image fruit-name cart-price"
+    "cart-image count-btns delete-btn";
+  }
+
+  .cart-summary {
+    width: 300px;
+  }
+}
+
 @media (min-width: 769px) {
+  .navbar {
+    font-size: 1.5rem;
+  }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .hamburger-menu {
+    display: none;
+  }
+
+  .hamburger-nav-links {
+    font-size: 1.5rem;
+    display: none;
+  }
+
+  .home-content h1 {
+    font-size: 60px;
+  }
+
+  .home-content p {
+    font-size: 30px;
+    margin-bottom: 40px;
+  }
+
   .details-container {
     grid-template-areas:
       "details-image title"
@@ -387,6 +456,10 @@ code {
 }
 
 @media (min-width: 1281px) {
+  .home-content {
+    text-shadow: none;
+  }
+
   .cart-container {
     grid-template-columns: 1fr 1fr 300px;
     grid-column-gap: 40px;
