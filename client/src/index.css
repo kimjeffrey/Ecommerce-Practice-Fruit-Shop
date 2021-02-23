@@ -93,11 +93,24 @@ code {
 .navbar-link {
   text-decoration: none;
   color: #f05454;
-  
+  position: relative;
 }
 
 .navbar-link:hover {
   color: #a83939;
+}
+
+.navbar-cart-count {
+  position: absolute;
+  right: -20px;
+  top: -8px;
+  background: #f05454;
+  color: white;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: .65rem;
 }
 
 .hamburger-menu {
