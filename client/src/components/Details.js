@@ -14,7 +14,6 @@ export default function Details(props){
     price: price,
     count: 1
   };
-  const localCart = JSON.parse(localStorage.getItem("cart"));
 
   const [count, setCount] = useState(1);
 
